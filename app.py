@@ -25,7 +25,7 @@ st.markdown("---")
 # 2. CONEXIÓN SEGURA DESDE LA CAJA FUERTE (Secrets)
 try:
     # Va a buscar la llave de forma oculta a la configuración de la nube de Streamlit
-    api_key_segura = st.secrets["AQ.Ab8RN6LHyAZ5ME30_-A-GthtvTIFEF7aKMM5Ezkh03Q4uigBSQ"]
+    api_key_segura = st.secrets["AIzaSyD-L_9uX7XwM90J3Q6Z4R7_v1T2-E3F4G5"]
     genai.configure(api_key=api_key_segura)
     model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception as e:
