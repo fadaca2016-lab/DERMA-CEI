@@ -19,13 +19,13 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.markdown("<h1>derma-cei</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#ad1457;'>Cosmiatra de Bolsillo - Motor Original</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#ad1457;'>Cosmiatra de Bolsillo - Red Real</p>", unsafe_allow_html=True)
 st.markdown("---")
 
 # 2. CONEXIÓN SEGURA DESDE LA CAJA FUERTE (Secrets)
 try:
-    # Va a buscar la llave de forma oculta a la configuración de la nube de Streamlit
-    api_key_segura = st.secrets["AIzaSyD-L_9uX7XwM90J3Q6Z4R7_v1T2-E3F4G5"]
+    # El código va a buscar exactamente la etiqueta GEMINI_API_KEY a los Secrets
+    api_key_segura = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=api_key_segura)
     model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception as e:
@@ -40,21 +40,20 @@ foto = st.camera_input("Capturá el rostro") if opcion == "📸 Usar Cámara del
 
 if foto and model:
     if st.button("🚀 INICIAR DIAGNÓSTICO"):
-        with st.spinner("Analizando la imagen real con Gemini 1.5..."):
+        with st.spinner("Analizando la imagen real en vivo..."):
             try:
                 img = Image.open(foto)
                 prompt = ("Actúa como un sistema avanzado de diagnóstico dermatocosmético para profesionales. "
-                          "Analiza la piel de la imagen de forma científica y real. "
+                          "Analiza la piel de la imagen adjunta de forma científica. "
                           "Estructura tu respuesta usando exactamente estos títulos: "
-                          "### 1) BIOTIPO CUTÁNEO\n\n"
-                          "### 2) FOTOTIPO (Escala Fitzpatrick)\n\n"
-                          "### 3) CONDICIONES / LESIONES VISIBLES.\n\n"
-                          "Describe detalladamente el tejido sin sugerir marcas comerciales.")
+                          "### 1) BIOTIPO CUTÁNEO (Describe detalladamente las zonas del rostro)\n\n"
+                          "### 2) FOTOTIPO (Determina la Escala Fitzpatrick según los rasgos visibles)\n\n"
+                          "### 3) CONDICIONES / LESIONES VISIBLES (Detalla líneas de expresión, manchas o sensibilidad sin sugerir marcas comerciales).")
                 
                 response = model.generate_content([prompt, img])
                 st.markdown(f"<div style='background-color: white; padding: 20px; border-radius: 15px; border-left: 5px solid #d81b60; color: black;'>{response.text}</div>", unsafe_allow_html=True)
             except Exception as e:
-                st.error(f"Falla en el análisis: {e}")
+                st.error(f"Falla en la conexión de datos: {e}. Intentá sacar la foto de nuevo.")
 
 st.markdown("---")
-st.caption("Gestión Técnico-Analógica de Precisión: Fabio & Olga — CEI 2026")
+st.caption("Gestión Técnico-Analógica Internacional: Fabio & Olga — CEI 2026")
